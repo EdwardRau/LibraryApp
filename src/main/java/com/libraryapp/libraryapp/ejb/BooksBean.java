@@ -2,8 +2,10 @@ package com.libraryapp.libraryapp.ejb;
 
 import com.libraryapp.libraryapp.common.BookDto;
 import com.libraryapp.libraryapp.entities.Book;
+import com.libraryapp.libraryapp.entities.User;
 import jakarta.ejb.EJBException;
 import jakarta.ejb.Stateless;
+import jakarta.persistence.Convert;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -38,5 +40,26 @@ public class BooksBean {
             bookDtos.add(new BookDto(book.getId(),book.getTitle(),book.getAuthor(),book.getGenre(),book.getOwner().getUsername()));
         }
         return bookDtos;
+    }
+    public void createBook(String title, String author, String genre){
+        LOG.info("createBook");
+
+        Book book = new Book();
+        book.setTitle(title);
+        book.setAuthor(author);
+        book.setGenre(genre);
+
+        User user = entityManager.find(User.class, Long.valueOf(-1));
+        user.getOneToMany().add(book);
+        book.setOwner(user);
+
+        entityManager.persist(book);
+    }
+
+    public void deleteBook(Long id){
+        LOG.info("deleteBook");
+
+        Book book = entityManager.find(Book.class, id);
+        entityManager.remove(book);
     }
 }

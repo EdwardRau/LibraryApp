@@ -1,6 +1,5 @@
 package com.libraryapp.libraryapp.servlets;
 
-import com.libraryapp.libraryapp.common.BookDto;
 import com.libraryapp.libraryapp.ejb.BooksBean;
 import jakarta.inject.Inject;
 import jakarta.servlet.*;
@@ -8,24 +7,26 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
-@WebServlet(name = "books", value = "/books")
-public class books extends HttpServlet {
-
+@WebServlet(name = "deleteBook", value = "/deleteBook")
+public class deleteBook extends HttpServlet {
     @Inject
     BooksBean booksBean;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse
             response) throws ServletException, IOException {
-        List<BookDto> books = booksBean.findAllBooks();
-        request.setAttribute("books", books);
-        request.getRequestDispatcher("/WEB-INF/pages/books.jsp").forward(request,response);
+        request.getRequestDispatcher("/WEB-INF/pages/deleteBook.jsp").forward(request,response);
+        Long id = Long.parseLong(request.getParameter("id"));
+        booksBean.deleteBook(id);
+        response.sendRedirect(request.getContextPath() + "/books");
     }
 
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        booksBean.deleteBook(id);
+        response.sendRedirect(request.getContextPath() + "/books");
+
     }
 }

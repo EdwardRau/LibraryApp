@@ -8,12 +8,10 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
-@WebServlet(name = "books", value = "/books")
-public class books extends HttpServlet {
-
+@WebServlet(name = "addBook", value = "/addBook")
+public class addBook extends HttpServlet {
     @Inject
     BooksBean booksBean;
     @Override
@@ -21,11 +19,17 @@ public class books extends HttpServlet {
             response) throws ServletException, IOException {
         List<BookDto> books = booksBean.findAllBooks();
         request.setAttribute("books", books);
-        request.getRequestDispatcher("/WEB-INF/pages/books.jsp").forward(request,response);
+        request.getRequestDispatcher("/WEB-INF/pages/addBook.jsp").forward(request,response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
+        String title = request.getParameter("title");
+        String author = request.getParameter("author");
+        String genre = request.getParameter("genre");
+
+        booksBean.createBook(title,author,genre);
+        response.sendRedirect(request.getContextPath() + "/books");
     }
 }

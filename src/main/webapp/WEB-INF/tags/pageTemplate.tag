@@ -13,5 +13,7 @@
     <main class="container-fluid mt-5">
         <jsp:doBody/>
     </main>
+    <script src="${pageContext.request.contextPath}/scripts/form-validation.js"></script>
+    <script src="${pageContext.request.contextPath}/scripts/delete_book.js"></script>
 </body>
 </html>

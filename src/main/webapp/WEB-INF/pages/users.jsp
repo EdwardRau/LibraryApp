@@ -4,19 +4,25 @@
 
 <t:pageTemplate pageTitle="users">
 
-    <div class="container text-center">
-    <div class="row">
+    <div class="text-center">
         <h1>Users</h1>
     </div>
-        <c:forEach var="user" items="${users}">
-            <div class="row">
-                <div class="col-6">
-                        ${user.username}
-                </div>
-                <div class="col-6">
-                        ${user.role}
-                </div>
-            </div>
-        </c:forEach>
+    <div class="table-responsive">
+        <table class="table table-dark table-hover aling-middle text-center">
+            <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="user" items="${users}">
+                <tr class="table-secondary">
+                    <td>${user.username}</td>
+                    <td>${user.role}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </div>
 </t:pageTemplate>
