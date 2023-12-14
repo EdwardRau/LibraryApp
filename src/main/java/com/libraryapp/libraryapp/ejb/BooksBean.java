@@ -62,4 +62,17 @@ public class BooksBean {
         Book book = entityManager.find(Book.class, id);
         entityManager.remove(book);
     }
+    public void changeOwner(Long bookId,Long newOwnerId){
+        LOG.info("changeOwner");
+
+        Book book=entityManager.find(Book.class,bookId);
+        User newOwner=entityManager.find(User.class, newOwnerId);
+        if(book!=null && newOwner!=null) {
+            User oldOwner = book.getOwner();
+            oldOwner.getOneToMany().remove(book);
+
+            book.setOwner(newOwner);
+            newOwner.getOneToMany().add(book);
+        }
+    }
 }
