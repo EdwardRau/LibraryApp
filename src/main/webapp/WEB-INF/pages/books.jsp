@@ -23,7 +23,7 @@
                 <td>${book.genre}</td>
                 <td>
                     <a class="btn btn-info" href="${pageContext.request.contextPath}/editBook" role="button">Change owner</a>
-                    <a class="btn btn-danger" href="${pageContext.request.contextPath}/deleteBook" role="button">Delete</a>
+                    <a class="btn btn-danger" href="${pageContext.request.contextPath}/deleteBook?id=${book.id}" role="button">Delete</a>
 
                 </td>
             </tr>

@@ -15,7 +15,6 @@ public class deleteBook extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse
             response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/pages/deleteBook.jsp").forward(request,response);
         Long id = Long.parseLong(request.getParameter("id"));
         booksBean.deleteBook(id);
         response.sendRedirect(request.getContextPath() + "/books");
@@ -24,9 +23,6 @@ public class deleteBook extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
-        Long id = Long.parseLong(request.getParameter("id"));
-        booksBean.deleteBook(id);
-        response.sendRedirect(request.getContextPath() + "/books");
 
     }
 }
