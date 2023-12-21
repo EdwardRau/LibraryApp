@@ -8,7 +8,9 @@
                     LibraryApp
                 </a></li>
                 <li><a href="${pageContext.request.contextPath}/books" class="nav-link px-2 text-white">Books</a></li>
+                <c:if test="${pageContext.request.isUserInRole('READ_USERS')}">
                 <li><a href="${pageContext.request.contextPath}/users" class="nav-link px-2 text-white">Users</a></li>
+                </c:if>
             </ul>
 
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">

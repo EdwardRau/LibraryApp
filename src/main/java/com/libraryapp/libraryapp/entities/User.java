@@ -6,6 +6,16 @@ import java.util.Collection;
 
 @Entity
 public class User {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    private String email;
+
     private Long id;
 
     public void setId(Long id) {

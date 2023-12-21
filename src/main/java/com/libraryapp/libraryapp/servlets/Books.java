@@ -10,12 +10,10 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
-import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.List;
 
 @WebServlet(name = "books", value = "/books")
-public class books extends HttpServlet {
+public class Books extends HttpServlet {
 
     @Inject
     BooksBean booksBean;

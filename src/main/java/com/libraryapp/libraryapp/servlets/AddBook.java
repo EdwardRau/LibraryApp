@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "addBook", value = "/addBook")
-public class addBook extends HttpServlet {
+public class AddBook extends HttpServlet {
     @Inject
     BooksBean booksBean;
     @Override
