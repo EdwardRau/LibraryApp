@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header class="p-3 text-bg-dark">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -15,8 +16,14 @@
             </form>
 
             <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" class="btn btn-warning">Sign-up</button>
+                <c:choose>
+                <c:when test="${pageContext.request.getRemoteUser() == null}">
+                <button onclick="window.location.href='${pageContext.request.contextPath}/Login'" class="btn btn-outline-light me-2">Login</button>
+                </c:when>
+                    <c:otherwise>
+                <button onclick="window.location.href='${pageContext.request.contextPath}/Logout'" class="btn btn-outline-light me-2">Logout</button>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>
