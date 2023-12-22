@@ -15,6 +15,7 @@ btn-lg">Add User</a>
             <tr>
                 <th scope="col">Username</th>
                 <th scope="col">Role</th>
+                <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -22,6 +23,12 @@ btn-lg">Add User</a>
                 <tr class="table-secondary">
                     <td>${user.username}</td>
                     <td>${user.role}</td>
+                    <td>
+                        <c:if test="${pageContext.request.isUserInRole('WRITE_USERS')}">
+                            <!-- Add the Edit button with a link to the EditUser servlet -->
+                            <a href="${pageContext.request.contextPath}/EditUser?id=${user.id}" class="btn btn-warning">Edit</a>
+                        </c:if>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>

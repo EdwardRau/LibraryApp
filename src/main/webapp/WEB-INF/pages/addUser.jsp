@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <t:pageTemplate pageTitle="AddUser">
     <h1>Add User</h1>
     <form class="needs-validation" novalidate method="POST" action="${pageContext.request.contextPath}/AddUser">
@@ -31,20 +31,22 @@
                 </div>
             </div>
         </div>
+        <c:if test="${pageContext.request.isUserInRole('WRITE_USERS')}">
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label for="user_groups" class="form-label">Owner</label>
-                <select class="form-select d-block w-100" id="user_groups" name="user_groups" multiple>
-                    <option value="">Choose...</option>
-                    <c:forEach var="user_group" items="${userGroups}" varStatus="status">
-                        <option value="${user_group}">${user_group}</option>
-                    </c:forEach>
-                </select>
-                <div class="invalid-feedback">
-                    Please select a valid owner
-                </div>
+                <label for="user_groups" class="form-label">User Groups</label>
+
+                    <select class="form-select d-block w-100" id="user_groups" name="user_groups" multiple>
+                        <c:forEach var="user_group" items="${userGroups}" varStatus="status">
+                            <option>${user_group}</option>
+                        </c:forEach>
+                    </select>
+                    <div class="invalid-feedback">
+                        Please select a valid user group
+                    </div>
             </div>
         </div>
+        </c:if>
         <hr class="mb-4">
         <button class="w-100 btn btn-primary btn-lg" type="submit">Save</button>
     </form>

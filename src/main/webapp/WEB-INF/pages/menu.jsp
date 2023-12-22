@@ -16,17 +16,18 @@
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
                 <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
             </form>
-
             <div class="text-end">
                 <c:choose>
-                <c:when test="${pageContext.request.getRemoteUser() == null}">
-                <button onclick="window.location.href='${pageContext.request.contextPath}/Login'" class="btn btn-outline-light me-2">Login</button>
-                </c:when>
+                    <c:when test="${pageContext.request.getRemoteUser() == null}">
+                        <button onclick="window.location.href='${pageContext.request.contextPath}/Login'" class="btn btn-outline-light me-2">Login</button>
+                        <button onclick="window.location.href='${pageContext.request.contextPath}/AddUser'" class="btn btn-danger me-2">Sign In</button>
+                    </c:when>
                     <c:otherwise>
-                <button onclick="window.location.href='${pageContext.request.contextPath}/Logout'" class="btn btn-outline-light me-2">Logout</button>
+                        <button onclick="window.location.href='${pageContext.request.contextPath}/Logout'" class="btn btn-outline-light me-2">Logout</button>
                     </c:otherwise>
                 </c:choose>
             </div>
+
         </div>
     </div>
 </header>
