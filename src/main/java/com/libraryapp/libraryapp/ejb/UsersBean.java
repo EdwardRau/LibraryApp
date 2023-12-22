@@ -111,7 +111,7 @@ public class UsersBean {
             removeGroupsFromUser(user.getUsername());
             user.setUsername(username);
             user.setEmail(email);
-            user.setPassword(password);
+            user.setPassword(passwordBean.convertToSha256(password));
             user.setRole(role);
             assignGroupsToUser(username,groups);
             entityManager.persist(user);
