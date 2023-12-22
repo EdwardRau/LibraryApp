@@ -31,6 +31,19 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="new_role" class="form-label">Role</label>
+                <select class="form-select" id="new_role" name="new_role" required>
+                    <option value="">Choose...</option>
+                    <option value="ADMIN" ${user.role eq 'ADMIN' ? 'selected' : ''}>Admin</option>
+                    <option value="USER" ${user.role eq 'USER' ? 'selected' : ''}>User</option>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a valid role
+                </div>
+            </div>
+        </div>
         <c:if test="${pageContext.request.isUserInRole('WRITE_USERS')}">
         <div class="row">
             <div class="col-md-6 mb-3">

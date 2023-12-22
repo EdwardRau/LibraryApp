@@ -7,7 +7,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
-
+@ServletSecurity(value = @HttpConstraint(rolesAllowed = {"WRITE_BOOKS"}))
 @WebServlet(name = "deleteBook", value = "/deleteBook")
 public class DeleteBook extends HttpServlet {
     @Inject

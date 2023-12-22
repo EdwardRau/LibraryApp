@@ -32,21 +32,9 @@ public class UsersBean {
     private List<UserDto> copyUserToDto(List<User> users) {
         List<UserDto> userDtos = new ArrayList<>();
         for (User user : users) {
-            // Assuming you have a method to retrieve user groups
-            Collection<String> groups = getUserGroups(user.getUsername());
             userDtos.add(new UserDto(user.getId(), user.getUsername(), user.getRole(), user.getEmail()));
         }
         return userDtos;
-    }
-    public void createUser(String username, String email, String password, String role, Collection<String> groups) {
-        LOG.info("createUser");
-        User newUser=new User();
-        newUser.setUsername(username);
-        newUser.setPassword(passwordBean.convertToSha256(password));
-        newUser.setRole(role);
-        newUser.setEmail(email);
-        entityManager.persist(newUser);
-        assignGroupsToUser(username,groups);
     }
     private void assignGroupsToUser(String username, Collection<String> groups) {
         LOG.info("assignGroupsToUser");
@@ -66,44 +54,23 @@ public class UsersBean {
                 LOG.warning("User not found with ID: " + userId);
             }
     }
-    public void editUser(Long userId, String newUsername, String newEmail, String newPassword, String newRole, Collection<String> newGroups) {
-        LOG.info("editUser");
-        User existingUser = entityManager.find(User.class, userId);
-        if (existingUser != null) {
-            existingUser.setUsername(newUsername);
-            existingUser.setEmail(newEmail);
-            existingUser.setPassword(passwordBean.convertToSha256(newPassword));
-            existingUser.setRole(newRole);
 
-            // Remove existing groups and assign new groups
-            removeAllGroupsForUser(existingUser.getUsername());
-            assignGroupsToUser(existingUser.getUsername(), newGroups);
-
-            entityManager.merge(existingUser);
-        } else {
-            LOG.warning("User not found with ID: " + userId);
-        }
+    public Collection<String> findUsernamesByUserIds(Collection<Long> userIds) {
+        List<String> usernames=
+                entityManager.createQuery("SELECT u.username from User u where  u.id in :userIds", String.class)
+                        .setParameter("userIds",userIds)
+                        .getResultList();
+        return usernames;
     }
-        private void removeAllGroupsForUser(String username) {
-            LOG.info("removeAllGroupsForUser");
-            TypedQuery<UserGroup> query = entityManager.createQuery("SELECT ug FROM UserGroup ug WHERE ug.username = :username", UserGroup.class);
-            query.setParameter("username", username);
-            List<UserGroup> userGroups = query.getResultList();
-
-            for (UserGroup userGroup : userGroups) {
-                entityManager.remove(userGroup);
-            }
-        }
 
     public UserDto findById(Long userId) {
         LOG.info("findById");
         User user = entityManager.find(User.class, userId);
         if (user != null) {
-            // Assuming you have a method to retrieve user groups
             Collection<String> groups = getUserGroups(user.getUsername());
             return new UserDto(user.getId(), user.getUsername(), user.getRole(), user.getEmail());
         }
-        return null;  // Handle the case where the user is not found
+        return null;
     }
     private Collection<String> getUserGroups(String username) {
         TypedQuery<UserGroup> query = entityManager.createQuery("SELECT ug FROM UserGroup ug WHERE ug.username = :username", UserGroup.class);
@@ -115,5 +82,42 @@ public class UsersBean {
             groups.add(userGroup.getUserGroup());
         }
         return groups;
+    }
+
+    private void removeGroupsFromUser(String username) {
+        LOG.info("removeGroupsFromUser");
+        List<UserGroup> userGroups = entityManager.createQuery("SELECT ug FROM UserGroup ug WHERE ug.username = :username", UserGroup.class)
+                .setParameter("username", username)
+                .getResultList();
+
+        for (UserGroup userGroup : userGroups) {
+            entityManager.remove(userGroup);
+        }
+    }
+    public void createUser(String username, String email, String password, String role, Collection<String> groups) {
+        LOG.info("createUser");
+        User newUser=new User();
+        newUser.setUsername(username);
+        newUser.setPassword(passwordBean.convertToSha256(password));
+        newUser.setRole(role);
+        newUser.setEmail(email);
+        entityManager.persist(newUser);
+        assignGroupsToUser(username,groups);
+    }
+    public void updateUser(Long userId,String username, String email, String password, String role, Collection<String> groups) {
+        LOG.info("updateUser");
+        User user=entityManager.find(User.class,userId);
+        if(user!=null){
+            removeGroupsFromUser(user.getUsername());
+            user.setUsername(username);
+            user.setEmail(email);
+            user.setPassword(password);
+            user.setRole(role);
+            assignGroupsToUser(username,groups);
+            entityManager.persist(user);
+        }
+
+
+
     }
 }

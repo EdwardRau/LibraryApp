@@ -11,7 +11,7 @@ import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-
+@ServletSecurity(httpMethodConstraints = {@HttpMethodConstraint(value = "POST", rolesAllowed = {"WRITE_BOOKS"})})
 @WebServlet(name = "books", value = "/books")
 public class Books extends HttpServlet {
 

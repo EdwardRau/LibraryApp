@@ -21,6 +21,7 @@ public class AddUser extends HttpServlet {
     UsersBean usersBean;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+
         request.setAttribute("userGroups",new String[]{"READ_BOOKS","WRITE_BOOKS","READ_USERS","WRITE_USERS"});
         request.getRequestDispatcher("/WEB-INF/pages/addUser.jsp").forward(request,response);
     }
@@ -48,4 +49,3 @@ public class AddUser extends HttpServlet {
 
     }
 }
-

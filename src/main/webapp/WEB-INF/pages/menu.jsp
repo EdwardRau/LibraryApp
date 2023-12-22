@@ -8,8 +8,11 @@
                     LibraryApp
                 </a></li>
                 <li><a href="${pageContext.request.contextPath}/books" class="nav-link px-2 text-white">Books</a></li>
-                <c:if test="${pageContext.request.isUserInRole('READ_USERS')}">
+                <c:if test="${pageContext.request.isUserInRole('WRITE_USERS')}">
                 <li><a href="${pageContext.request.contextPath}/users" class="nav-link px-2 text-white">Users</a></li>
+                </c:if>
+                <c:if test="${pageContext.request.isUserInRole('WRITE_BOOKS')}">
+                    <li><a href="${pageContext.request.contextPath}/addBook" class="nav-link px-2 text-white">Add Book</a> </li>
                 </c:if>
             </ul>
 

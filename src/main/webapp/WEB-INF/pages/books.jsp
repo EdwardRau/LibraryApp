@@ -12,8 +12,10 @@
                     <th scope="col">Title</th>
                     <th scope="col">Author</th>
                     <th scope="col">Genre</th>
+                    <c:if test="${pageContext.request.isUserInRole('WRITE_BOOKS')}">
                     <th scope="col">Owner</th>
                     <th scope="col">Options</th>
+                    </c:if>
                 </tr>
                 </thead>
                 <tbody>
@@ -22,7 +24,10 @@
                         <td>${book.title}</td>
                         <td>${book.author}</td>
                         <td>${book.genre}</td>
+                        <c:if test="${pageContext.request.isUserInRole('WRITE_BOOKS')}">
                         <td>${book.ownerName}</td>
+                        </c:if>
+                        <c:if test="${pageContext.request.isUserInRole('WRITE_BOOKS')}">
                         <td>
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#changeOwnerModal${book.id}">
@@ -30,13 +35,14 @@
                             </button>
                             <a class="btn btn-danger" href="${pageContext.request.contextPath}/deleteBook?id=${book.id}" role="button">Delete</a>
                         </td>
+                        </c:if>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
         </div>
-        <a class="btn btn-primary" href="${pageContext.request.contextPath}/addBook" role="button">Add new book</a>
     </div>
+    <c:if test="${pageContext.request.isUserInRole('WRITE_BOOKS')}">
     <c:forEach var="book" items="${books}">
         <div class="modal fade" id="changeOwnerModal${book.id}" tabindex="-1" aria-labelledby="changeOwnerModalLabel${book.id}" aria-hidden="true">
             <div class="modal-dialog">
@@ -65,4 +71,5 @@
             </div>
         </div>
     </c:forEach>
+    </c:if>
 </t:pageTemplate>
