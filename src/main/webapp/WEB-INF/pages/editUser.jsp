@@ -62,5 +62,6 @@
         <button class="w-100 btn btn-primary btn-lg" type="submit">Submit</button>
         <hr class="mb-4">
         <input type="hidden" name="user_id" value="${user.id}" />
+        <a class="btn btn-danger" href="${pageContext.request.contextPath}/DeleteUser?id=${user.id}" role="button">Delete</a>
     </form>
 </t:pageTemplate>

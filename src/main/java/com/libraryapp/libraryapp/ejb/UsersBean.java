@@ -114,10 +114,6 @@ public class UsersBean {
             user.setPassword(passwordBean.convertToSha256(password));
             user.setRole(role);
             assignGroupsToUser(username,groups);
-            entityManager.persist(user);
         }
-
-
-
     }
 }

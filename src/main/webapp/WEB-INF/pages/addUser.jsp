@@ -31,6 +31,7 @@
                 </div>
             </div>
         </div>
+        <c:if test="${pageContext.request.isUserInRole('WRITE_USERS')}">
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="new_role" class="form-label">Role</label>
@@ -44,6 +45,7 @@
                 </div>
             </div>
         </div>
+        </c:if>
         <c:if test="${pageContext.request.isUserInRole('WRITE_USERS')}">
         <div class="row">
             <div class="col-md-6 mb-3">
