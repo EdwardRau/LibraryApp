@@ -34,7 +34,7 @@ public class BooksBean {
 
         for (var book : books
         ) {
-            bookDtos.add(new BookDto(book.getId(),book.getTitle(),book.getAuthor(),book.getGenre(),book.getOwner().getUsername(), book.isLoaned()));
+            bookDtos.add(new BookDto(book.getId(),book.getTitle(),book.getAuthor(),book.getGenre(),book.getOwner().getUsername(),book.getLoan().getEndDate(), book.isLoaned()));
         }
         return bookDtos;
     }
@@ -76,6 +76,6 @@ public class BooksBean {
     public BookDto findBookById(Long bookId) {
         Book book = entityManager.find(Book.class, bookId);
         return (book != null) ? new BookDto(book.getId(), book.getTitle(), book.getAuthor(), book.getGenre(),
-                book.getOwner().getUsername(), book.isLoaned()) : null;
+                book.getOwner().getUsername(),book.getLoan().getEndDate(), book.isLoaned()) : null;
     }
 }

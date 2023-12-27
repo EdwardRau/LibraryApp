@@ -1,5 +1,7 @@
 package com.libraryapp.libraryapp.common;
 
+import java.time.LocalDate;
+
 public class BookDto {
         Long id;
         String title;
@@ -7,6 +9,8 @@ public class BookDto {
         String genre;
         String ownerName;
         boolean isLoaned;
+        LocalDate endDate;
+
 
     public boolean isLoaned() {
         return isLoaned;
@@ -32,12 +36,17 @@ public class BookDto {
         return ownerName;
     }
 
-    public BookDto(Long id, String title, String author, String genre, String ownerName,boolean isLoaned) {
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public BookDto(Long id, String title, String author, String genre, String ownerName, LocalDate endDate, boolean isLoaned) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.genre = genre;
         this.ownerName = ownerName;
+        this.endDate=endDate;
         this.isLoaned=isLoaned;
     }
 }

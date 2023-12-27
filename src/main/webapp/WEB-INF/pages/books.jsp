@@ -28,7 +28,7 @@
                         <td>
                             <c:choose>
                                 <c:when test="${book.loaned}">
-                                    <span class="text-danger">Unavailable</span>
+                                    <span class="text-danger">Unavailable until ${book.endDate}</span>
                                 </c:when>
                                 <c:otherwise>
                                     <span class="text-success">Available</span>
