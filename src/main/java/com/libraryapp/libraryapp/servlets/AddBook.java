@@ -28,8 +28,9 @@ public class AddBook extends HttpServlet {
         String title = request.getParameter("title");
         String author = request.getParameter("author");
         String genre = request.getParameter("genre");
+        boolean isLoaned= Boolean.parseBoolean(request.getParameter("isLoaned"));
 
-        booksBean.createBook(title,author,genre);
+        booksBean.createBook(title,author,genre,isLoaned);
         response.sendRedirect(request.getContextPath() + "/books");
     }
 }

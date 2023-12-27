@@ -12,8 +12,8 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 @ServletSecurity(httpMethodConstraints = {@HttpMethodConstraint(value = "POST", rolesAllowed = {"WRITE_BOOKS"})})
-@WebServlet(name = "books", value = "/books")
-public class Books extends HttpServlet {
+@WebServlet(name = "Loan", value = "/Loan")
+public class Loan extends HttpServlet {
 
     @Inject
     BooksBean booksBean;
@@ -22,14 +22,12 @@ public class Books extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse
             response) throws ServletException, IOException {
-        List<BookDto> books = booksBean.findAllBooks();
-        request.setAttribute("books", books);
-        request.getRequestDispatcher("/WEB-INF/pages/books.jsp").forward(request,response);
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException, IOException {
 
+        }
     }
-}

@@ -17,10 +17,8 @@ import java.util.logging.Logger;
 @Stateless
 public class BooksBean {
     private static final Logger LOG = Logger.getLogger(BooksBean.class.getName());
-
     @PersistenceContext
     EntityManager entityManager;
-
     public List<BookDto> findAllBooks() {
         LOG.info("findAllBooks");
         try{
@@ -31,23 +29,23 @@ public class BooksBean {
             throw new EJBException(ex);
         }
     }
-
     private List<BookDto> copyBooksToDto(List<Book> books) {
         List<BookDto> bookDtos = new ArrayList<>();
 
         for (var book : books
         ) {
-            bookDtos.add(new BookDto(book.getId(),book.getTitle(),book.getAuthor(),book.getGenre(),book.getOwner().getUsername()));
+            bookDtos.add(new BookDto(book.getId(),book.getTitle(),book.getAuthor(),book.getGenre(),book.getOwner().getUsername(), book.isLoaned()));
         }
         return bookDtos;
     }
-    public void createBook(String title, String author, String genre){
+    public void createBook(String title, String author, String genre,boolean isLoaned){
         LOG.info("createBook");
 
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
         book.setGenre(genre);
+        book.setLoaned(false);
 
         User user = entityManager.find(User.class, Long.valueOf(-1));
         user.getOneToMany().add(book);
@@ -55,7 +53,6 @@ public class BooksBean {
 
         entityManager.persist(book);
     }
-
     public void deleteBook(Long id){
         LOG.info("deleteBook");
 
@@ -76,5 +73,9 @@ public class BooksBean {
         }
     }
 
-
+    public BookDto findBookById(Long bookId) {
+        Book book = entityManager.find(Book.class, bookId);
+        return (book != null) ? new BookDto(book.getId(), book.getTitle(), book.getAuthor(), book.getGenre(),
+                book.getOwner().getUsername(), book.isLoaned()) : null;
+    }
 }

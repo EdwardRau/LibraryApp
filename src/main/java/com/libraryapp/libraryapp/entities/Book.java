@@ -4,6 +4,15 @@ import jakarta.persistence.*;
 @Entity
 public class Book {
     private Long id;
+    private boolean isLoaned;
+
+    public boolean isLoaned() {
+        return isLoaned;
+    }
+
+    public void setLoaned(boolean loaned) {
+        isLoaned = loaned;
+    }
 
     @GeneratedValue
     @Id
