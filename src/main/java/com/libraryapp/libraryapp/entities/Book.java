@@ -1,5 +1,4 @@
 package com.libraryapp.libraryapp.entities;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -15,7 +14,10 @@ public class Book {
     public void setId(Long id) {
         this.id = id;
     }
-
+    private Loan loan;
+    @OneToOne
+    public Loan getLoan(){return loan;}
+    public void setLoan(Loan loan){this.loan=loan;}
     private User owner;
 
     @ManyToOne

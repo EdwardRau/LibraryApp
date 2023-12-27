@@ -8,6 +8,7 @@
       <class>com.libraryapp.libraryapp.entities.User</class>
       <class>com.libraryapp.libraryapp.entities.Book</class>
       <class>com.libraryapp.libraryapp.entities.UserGroup</class>
+      <class>com.libraryapp.libraryapp.entities.Loan</class>
       <properties>
           <property name="jakarta.persistence.schema-generation.database.action" value="create-or-extend-tables" />
       </properties>
