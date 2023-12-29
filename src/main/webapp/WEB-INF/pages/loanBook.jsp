@@ -10,13 +10,6 @@
                 <input type="hidden" name="action" value="loanBook">
                 <input type="hidden" name="bookId" value="${book.id}">
 
-                <label for="newOwnerId">Select Owner:</label>
-                <select id="newOwnerId" name="newOwnerId" class="form-select" aria-label="Default select example">
-                    <c:forEach var="user" items="${users}">
-                        <option value="${user.id}" <c:if test="${user.username eq book.ownerName}">selected</c:if>>${user.username}</option>
-                    </c:forEach>
-                </select>
-
                 <label for="startDate">Start Date:</label>
                 <input type="date" id="startDate" name="startDate" required>
 

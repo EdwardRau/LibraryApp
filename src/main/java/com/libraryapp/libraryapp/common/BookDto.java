@@ -3,14 +3,11 @@ package com.libraryapp.libraryapp.common;
 import java.time.LocalDate;
 
 public class BookDto {
-        Long id;
-        String title;
-        String author;
-        String genre;
-        String ownerName;
-        boolean isLoaned;
-        LocalDate endDate;
-
+    Long id;
+    String title;
+    String author;
+    String genre;
+    boolean isLoaned;
 
     public boolean isLoaned() {
         return isLoaned;
@@ -32,21 +29,14 @@ public class BookDto {
         return genre;
     }
 
-    public String getOwnerName() {
-        return ownerName;
-    }
 
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public BookDto(Long id, String title, String author, String genre, String ownerName, LocalDate endDate, boolean isLoaned) {
+    public BookDto(Long id, String title, String author, String genre,  boolean isLoaned) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.genre = genre;
-        this.ownerName = ownerName;
-        this.endDate=endDate;
-        this.isLoaned=isLoaned;
+
+        this.isLoaned = isLoaned;
+
     }
 }

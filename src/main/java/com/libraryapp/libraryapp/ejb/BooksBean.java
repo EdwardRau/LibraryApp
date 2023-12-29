@@ -34,23 +34,17 @@ public class BooksBean {
 
         for (var book : books
         ) {
-            bookDtos.add(new BookDto(book.getId(),book.getTitle(),book.getAuthor(),book.getGenre(),book.getOwner().getUsername(),book.getLoan().getEndDate(), book.isLoaned()));
+            bookDtos.add(new BookDto(book.getId(),book.getTitle(),book.getAuthor(),book.getGenre(), book.isLoaned()));
         }
         return bookDtos;
     }
-    public void createBook(String title, String author, String genre,boolean isLoaned){
+    public void createBook(String title, String author, String genre){
         LOG.info("createBook");
-
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
         book.setGenre(genre);
         book.setLoaned(false);
-
-        User user = entityManager.find(User.class, Long.valueOf(-1));
-        user.getOneToMany().add(book);
-        book.setOwner(user);
-
         entityManager.persist(book);
     }
     public void deleteBook(Long id){
@@ -59,23 +53,8 @@ public class BooksBean {
         Book book = entityManager.find(Book.class, id);
         entityManager.remove(book);
     }
-    public void changeOwner(Long bookId,Long newOwnerId){
-        LOG.info("changeOwner");
-
-        Book book=entityManager.find(Book.class,bookId);
-        User newOwner=entityManager.find(User.class, newOwnerId);
-        if(book!=null && newOwner!=null) {
-            User oldOwner = book.getOwner();
-            oldOwner.getOneToMany().remove(book);
-
-            book.setOwner(newOwner);
-            newOwner.getOneToMany().add(book);
-        }
-    }
-
     public BookDto findBookById(Long bookId) {
         Book book = entityManager.find(Book.class, bookId);
-        return (book != null) ? new BookDto(book.getId(), book.getTitle(), book.getAuthor(), book.getGenre(),
-                book.getOwner().getUsername(),book.getLoan().getEndDate(), book.isLoaned()) : null;
+        return (book != null) ? new BookDto(book.getId(), book.getTitle(), book.getAuthor(), book.getGenre(), book.isLoaned()) : null;
     }
 }

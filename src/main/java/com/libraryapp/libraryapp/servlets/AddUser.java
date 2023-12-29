@@ -42,7 +42,7 @@ public class AddUser extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/users");
         } else {
             // Regular user, set default group to READ_BOOKS
-            usersBean.createUser(username, email, password, "user", Collections.singletonList("READ_BOOKS"));
+            usersBean.createUser(username, email, password, "USER", Collections.singletonList("READ_BOOKS"));
             request.login(username,password);
             response.sendRedirect(request.getContextPath()+"/");
         }

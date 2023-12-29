@@ -34,8 +34,8 @@
         <c:if test="${pageContext.request.isUserInRole('WRITE_USERS')}">
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label for="new_role" class="form-label">Role</label>
-                <select class="form-select" id="new_role" name="new_role" required>
+                <label for="role" class="form-label">Role</label>
+                <select class="form-select" id="role" name="role" required>
                     <option value="">Choose...</option>
                     <option value="ADMIN" ${user.role eq 'ADMIN' ? 'selected' : ''}>Admin</option>
                     <option value="USER" ${user.role eq 'USER' ? 'selected' : ''}>User</option>

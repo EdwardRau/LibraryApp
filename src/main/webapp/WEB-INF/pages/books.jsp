@@ -13,9 +13,6 @@
                     <th scope="col">Author</th>
                     <th scope="col">Genre</th>
                     <th scope="col">Availability</th>
-                    <c:if test="${pageContext.request.isUserInRole('WRITE_BOOKS')}">
-                        <th scope="col">Owner</th>
-                    </c:if>
                     <th scope="col">Options</th>
                 </tr>
                 </thead>
@@ -28,16 +25,13 @@
                         <td>
                             <c:choose>
                                 <c:when test="${book.loaned}">
-                                    <span class="text-danger">Unavailable until ${book.endDate}</span>
+                                    <span class="text-danger">Unavailable</span>
                                 </c:when>
                                 <c:otherwise>
                                     <span class="text-success">Available</span>
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <c:if test="${pageContext.request.isUserInRole('WRITE_BOOKS')}">
-                            <td>${book.ownerName}</td>
-                        </c:if>
                         <td>
                             <c:choose>
                                 <c:when test="${pageContext.request.isUserInRole('WRITE_BOOKS')}">

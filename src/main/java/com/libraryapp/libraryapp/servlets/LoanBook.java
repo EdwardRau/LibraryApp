@@ -29,9 +29,6 @@ public class LoanBook extends HttpServlet {
         Long bookId = Long.parseLong(request.getParameter("id"));
         BookDto book = booksBean.findBookById(bookId);
         request.setAttribute("book", book);
-        List<UserDto> users = usersBean.findAllUsers();
-        users.sort((user1, user2) -> String.CASE_INSENSITIVE_ORDER.compare(user1.getUsername(), user2.getUsername()));
-        request.setAttribute("users", users);
         request.getRequestDispatcher("/WEB-INF/pages/loanBook.jsp").forward(request, response);
     }
 
@@ -41,13 +38,12 @@ public class LoanBook extends HttpServlet {
         String action = request.getParameter("action");
         if ("loanBook".equals(action)) {
             Long bookId = Long.parseLong(request.getParameter("bookId"));
-            Long newOwnerId = Long.parseLong(request.getParameter("newOwnerId"));
             LocalDate startDate = LocalDate.parse(request.getParameter("startDate"));
             LocalDate endDate = LocalDate.parse(request.getParameter("endDate"));
             BookDto book = booksBean.findBookById(bookId);
             if (book != null && !book.isLoaned()) {
                 loanBean.createLoan(bookId, startDate, endDate);
-                booksBean.changeOwner(bookId, newOwnerId);
+
                 response.sendRedirect(request.getContextPath() + "/books");
             } else {
                 response.sendRedirect(request.getContextPath() + "/loanBook?id=" + bookId);

@@ -49,6 +49,7 @@ public class UsersBean {
         LOG.info("deleteUser");
             User userToDelete = entityManager.find(User.class, userId);
             if (userToDelete != null) {
+                removeGroupsFromUser(userToDelete.getUsername());
                 entityManager.remove(userToDelete);
             } else {
                 LOG.warning("User not found with ID: " + userId);
