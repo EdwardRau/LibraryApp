@@ -22,9 +22,17 @@ public class Books extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse
             response) throws ServletException, IOException {
+        Long id = null;
+        String bookIdParam = request.getParameter("id");
+
+        if (bookIdParam != null && !bookIdParam.isEmpty()) {
+            id = Long.parseLong(bookIdParam);
+        }
+
         List<BookDto> books = booksBean.findAllBooks();
         request.setAttribute("books", books);
-        request.getRequestDispatcher("/WEB-INF/pages/books.jsp").forward(request,response);
+        request.setAttribute("id", id);
+        request.getRequestDispatcher("/WEB-INF/pages/books.jsp").forward(request, response);
     }
 
     @Override

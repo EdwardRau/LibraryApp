@@ -10,9 +10,8 @@
                 <p class="lead">In order to add a new book please fill the fields below</p>
             </div>
             <div class="col-md col-lg">
-                <form class="needs-validation" novalidate="" method="POST"
+                <form class="needs-validation" novalidate="" method="POST" enctype="multipart/form-data"
                       action="${pageContext.request.contextPath}/addBook">
-
                     <div class="col-12">
                         <label for="title" class="form-label">Title</label>
                         <div class="input-group">
@@ -40,6 +39,24 @@
                                    required="">
                             <div class="invalid-feedback">
                                 A genre is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="description" class="form-label">Description</label>
+                        <div class="input-group">
+                            <textarea class="form-control" id="description" name="description" placeholder="Enter book description" rows="4"></textarea>
+                            <div class="invalid-feedback">
+                                A description is required.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="image" class="form-label">Book Image</label>
+                        <div class="input-group">
+                            <input type="file" class="form-control" id="image" name="image" accept="image/*" required="">
+                            <div class="invalid-feedback">
+                                An image is required.
                             </div>
                         </div>
                     </div>

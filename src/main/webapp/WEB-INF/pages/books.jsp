@@ -18,7 +18,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="book" items="${books}">
-                    <tr class="table-secondary">
+                    <tr class="table-secondary" onclick="redirectToDetails(${book.id})" style="cursor: pointer;">
                         <td>${book.title}</td>
                         <td>${book.author}</td>
                         <td>${book.genre}</td>
@@ -50,3 +50,8 @@
         </div>
     </div>
 </t:pageTemplate>
+<script>
+    function redirectToDetails(id) {
+        window.location.href = "${pageContext.request.contextPath}/BookDetails?id=" + id;
+    }
+</script>

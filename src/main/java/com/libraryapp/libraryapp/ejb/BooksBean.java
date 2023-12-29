@@ -9,6 +9,7 @@ import jakarta.persistence.Convert;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
+import jakarta.servlet.http.Part;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,16 +35,18 @@ public class BooksBean {
 
         for (var book : books
         ) {
-            bookDtos.add(new BookDto(book.getId(),book.getTitle(),book.getAuthor(),book.getGenre(), book.isLoaned()));
+            bookDtos.add(new BookDto(book.getId(),book.getTitle(),book.getAuthor(),book.getGenre(), book.isLoaned(), book.getDescription(), book.getImagePath()));
         }
         return bookDtos;
     }
-    public void createBook(String title, String author, String genre){
+    public void createBook(String title, String author, String genre,String description,String imagePath){
         LOG.info("createBook");
         Book book = new Book();
         book.setTitle(title);
         book.setAuthor(author);
         book.setGenre(genre);
+        book.setDescription(description);
+        book.setImagePath(imagePath);
         book.setLoaned(false);
         entityManager.persist(book);
     }
@@ -55,6 +58,16 @@ public class BooksBean {
     }
     public BookDto findBookById(Long bookId) {
         Book book = entityManager.find(Book.class, bookId);
-        return (book != null) ? new BookDto(book.getId(), book.getTitle(), book.getAuthor(), book.getGenre(), book.isLoaned()) : null;
+        return (book != null) ? new BookDto(book.getId(), book.getTitle(), book.getAuthor(), book.getGenre(), book.isLoaned(), book.getDescription(), book.getImagePath()) : null;
+    }
+    public String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] tokens = contentDisp.split(";");
+        for (String token : tokens) {
+            if (token.trim().startsWith("filename")) {
+                return token.substring(token.indexOf('=') + 2, token.length() - 1);
+            }
+        }
+        return "";
     }
 }

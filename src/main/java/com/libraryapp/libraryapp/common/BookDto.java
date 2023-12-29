@@ -8,6 +8,11 @@ public class BookDto {
     String author;
     String genre;
     boolean isLoaned;
+    String imagePath;
+
+    public String getImagePath() {
+        return imagePath;
+    }
 
     public boolean isLoaned() {
         return isLoaned;
@@ -28,15 +33,19 @@ public class BookDto {
     public String getGenre() {
         return genre;
     }
+    String description;
 
+    public String getDescription() {
+        return description;
+    }
 
-    public BookDto(Long id, String title, String author, String genre,  boolean isLoaned) {
+    public BookDto(Long id, String title, String author, String genre, boolean isLoaned, String description,String imagePath) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.genre = genre;
-
+        this.description=description;
         this.isLoaned = isLoaned;
-
+        this.imagePath=imagePath;
     }
 }
