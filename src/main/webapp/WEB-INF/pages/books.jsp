@@ -35,7 +35,7 @@
                         <td>
                             <c:choose>
                                 <c:when test="${pageContext.request.isUserInRole('WRITE_BOOKS')}">
-                                    <a class="btn btn-warning" href="${pageContext.request.contextPath}/loanBook?id=${book.id}" role="button">Edit</a>
+                                    <a class="btn btn-warning" href="${pageContext.request.contextPath}/EditBook?id=${book.id}" role="button">Edit</a>
                                     <a class="btn btn-danger" href="${pageContext.request.contextPath}/deleteBook?id=${book.id}" role="button">Delete</a>
                                 </c:when>
                                 <c:otherwise>

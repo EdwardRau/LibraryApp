@@ -39,6 +39,36 @@ public class BooksBean {
         }
         return bookDtos;
     }
+
+    public BookDto findById(Long id) {
+        LOG.info("findById");
+
+        try {
+            Book book = entityManager.find(Book.class, id);
+
+            if (book != null) {
+                return new BookDto(book.getId(), book.getTitle(), book.getAuthor(), book.getGenre(),book.isLoaned(),book.getDescription(),book.getImagePath() );
+            } else {
+
+                LOG.warning("Book not found with ID: " + id);
+                return null;
+            }
+        } catch (Exception ex) {
+            throw new EJBException(ex);
+        }
+    }
+
+    public void updateBook(Long bookId,String title,String Author,String Genre,String description,String imagePath){
+        LOG.info("updateBook");
+
+        Book book=entityManager.find(Book.class,bookId);
+        book.setTitle(title);
+        book.setAuthor(Author);
+        book.setGenre(Genre);
+        book.setDescription(description);
+        book.setImagePath(imagePath);
+
+    }
     public void createBook(String title, String author, String genre,String description,String imagePath){
         LOG.info("createBook");
         Book book = new Book();
