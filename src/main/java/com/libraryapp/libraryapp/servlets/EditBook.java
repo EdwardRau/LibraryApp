@@ -36,7 +36,7 @@ public class EditBook extends HttpServlet{
         List<UserDto> users=usersBean.findAllUsers();
         request.setAttribute("users",users);
         Long bookId=Long.parseLong(request.getParameter("id"));
-        BookDto book=BooksBean.findById(bookId);
+        BookDto book=BooksBean.findBookById(bookId);
         request.setAttribute("book",book);
         request.getRequestDispatcher("/WEB-INF/pages/editBook.jsp").forward(request,response);
     }
